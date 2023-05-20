@@ -1,38 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iaryda_new/routes/app_pages.dart';
+//import 'package:iaryda_new/routes/app_pages.dart';
 //import 'package:iaryda_new/search_page.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'component/calender.dart';
+import 'home_screen.dart';
 
-void main() {
-  runApp(const HomePage());
-}
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //초기화하는 flutter framework가 준비될 때까지 기다려줌. runApp에 자동으로 실행되는데, runApp실행 전에 우리는 initial그걸 쓸거니까 추가해줘야함.
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  await initializeDateFormatting(); //intl pkg 안에 있는 언어 정보를 쓸 수 있게 해줌
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Iaryda',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('이어리다'),
-            backgroundColor: Colors.transparent,
-            actions: [
-              IconButton(
-                  onPressed: ()=> Get.toNamed(Routes.SEARCH),
-                  icon: const Icon(Icons.search)
-              )
-            ],
-          ),
-          body: Column(
-            children: [
-              Calendar(),
-            ],
-
-          ))
-    );
-  }
+  runApp(MaterialApp(
+    home: HomeScreen(),
+  ));
 }
